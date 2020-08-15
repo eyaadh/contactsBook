@@ -18,5 +18,6 @@ async def web_server():
     web_app.router.add_static("/", ".")
 
     WebSocketAsync.add_route("list_people", ws_routes.list_people.list_people)
+    WebSocketAsync.add_route("get_people", ws_routes.get_people.get_people)
 
     return web_app

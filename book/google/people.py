@@ -13,3 +13,10 @@ class GPeople:
         connections = results.get('connections', [])
 
         return connections
+
+    async def get_contacts(self, resource_name):
+        results = self.service.people().get(
+            resourceName=resource_name,
+            personFields='names,emailAddresses,phoneNumbers,organizations').execute()
+
+        return results

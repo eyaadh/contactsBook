@@ -9,7 +9,6 @@ async def main():
     await runner.setup()
     await web.TCPSite(runner, "0.0.0.0", 8080).start()
 
-
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     try:

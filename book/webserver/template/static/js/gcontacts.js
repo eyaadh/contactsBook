@@ -20,6 +20,7 @@ function load_contacts_table(){
 
         for (i=0; i < data['len']; i++) {
             console.log(data['contacts'][i]);
+            ref = data['contacts'][i]['resourceName']
             name = data['contacts'][i]['name']
             title = data['contacts'][i]['title']
             short_code = ''
@@ -45,8 +46,27 @@ function load_contacts_table(){
                 }
             }
 
-            table_row = '<tr><th>' + (i + 1) + '</th><td>'+ name +'</td><td>' + title + '</td><td>' + phone + '</td><td>' + short_code + '</td><td>' + extension + '</td><td>' + email + '</td></tr>'
+            table_row = '<tr><th>' + (i + 1) + '</th><td><a data-toggle="modal" data-target="#ContactDetailedModal" data-contact-ref="' + ref + '" onclick="load_cMod_data(this);">'+ name +'</a></td><td>' + title + '</td><td>' + phone + '</td><td>' + short_code + '</td><td>' + extension + '</td><td>' + email + '</td></tr>'
             $('#contacts-table > tbody:last-child').append(table_row);
+        }
+    });
+}
+
+function load_cMod_data(identifier){
+    resource_name = $(identifier).data('contact-ref');
+    RPC.call('get_people', {'resource_name' : resource_name}).then(function (result) {
+        data = JSON.parse(result)
+        console.log(data);
+        $('#ContactDetailedModal').find('.modal-title').text(data['names'][0]['displayName']);
+        $('#contacts-phone-card').empty();
+        $('#contacts-email-card').empty();
+
+        for (i = 0; i < data['phoneNumbers'].length; ++i) {
+            $("#contacts-phone-card").append('<h6 class="card-subtitle mb-2 text-muted text-capitalize">' + data['phoneNumbers'][i]['type'] + '</h6><p class="card-text">' + data['phoneNumbers'][i]['value']  + '</p>');
+        }
+
+        for (i = 0; i < data['emailAddresses'].length; ++i) {
+            $("#contacts-email-card").append('<h6 class="card-subtitle mb-2 text-muted text-capitalize">' + data['emailAddresses'][i]['type'] + '</h6><p class="card-text">' + data['emailAddresses'][i]['value']  + '</p>');
         }
     });
 }
