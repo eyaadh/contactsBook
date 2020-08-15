@@ -9,8 +9,7 @@ class GPeople:
         results = self.service.people().connections().list(
             resourceName='people/me',
             pageSize=1000,
-            personFields='names,emailAddresses,phoneNumbers').execute()
+            personFields='names,emailAddresses,phoneNumbers,organizations').execute()
         connections = results.get('connections', [])
 
-        for person in connections:
-            print(person)
+        return connections

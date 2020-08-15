@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+
+    <script type="text/javascript" src="/js/wsrpc.js"></script>
     <title>Contact Book</title>
 </head>
 <body>
@@ -19,14 +21,17 @@
             </a>
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="nav-options-tab" data-toggle="tab" href="#nav-options" role="tab" aria-controls="nav-options" aria-selected="false">Options</a>
-                    </li>
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" id="nav-options-tab" data-toggle="tab" href="#nav-options" role="tab" aria-controls="nav-options" aria-selected="false">Options</a>-->
+<!--                    </li>-->
 
                 </ul>
+                <form class="form-inline">
+                    <input id="contact-search-input" class="form-control input-sm" type="search" placeholder="Search" aria-label="Search">
+                </form>
             </div>
         </nav>
 
@@ -34,39 +39,25 @@
         <div class="tab-content" id="nav-tabContent">
             <!--main address book tab-->
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                <table class="table table-hover">
+                <table class="table table-hover" id="contacts-table">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Department</th>
-                            <th scope="col">Position</th>
-                            <th scope="col">Contact Number</th>
-                            <th scope="col">Short Code</th>
+                            <th scope="col"><i class="fa fa-address-card"></i> Name</th>
+                            <th scope="col"><i class="fa fa-black-tie" aria-hidden="true"></i> Title</th>
+                            <th scope="col"><i class="fa fa-mobile" aria-hidden="true"></i> Contact Number</th>
+                            <th scope="col"><i class="fa fa-mobile" aria-hidden="true"></i> Short Code</th>
+                            <th scope="col"><i class="fa fa-phone" aria-hidden="true"></i> Telephone Extension</th>
+                            <th scope="col"><i class="fa fa-envelope" aria-hidden="true"></i> Email</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Ahmed Iyad Mohamed</td>
-                            <td>Information Technology</td>
-                            <td>IT Manager</td>
-                            <td>+9609959520</td>
-                            <td>2222</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Ibrahim Irusham Rashaad</td>
-                            <td>Information Technology</td>
-                            <td>IT Assistant</td>
-                            <td>+9607891661</td>
-                            <td>2223</td>
-                        </tr>
+                        <!--load from JS-->
                     </tbody>
 
                 </table>
             </div>
-            <div class="tab-pane fade" id="nav-options" role="tabpanel" aria-labelledby="nav-options-tab">...options</div>
+<!--            <div class="tab-pane fade" id="nav-options" role="tabpanel" aria-labelledby="nav-options-tab">...options</div>-->
         </div>
 
         <!-- Footer contents-->
@@ -79,5 +70,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script src="{{ static('js/gcontacts.js') }}"></script>
 </body>
 </html>

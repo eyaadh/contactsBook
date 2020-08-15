@@ -2,14 +2,12 @@ import asyncio
 import logging
 from aiohttp import web
 from book.webserver import web_server
-from book.google.people import GPeople
 
 
 async def main():
     runner = web.AppRunner(await web_server())
     await runner.setup()
-    await web.TCPSite(runner, '0.0.0.0', 8080).start()
-    await GPeople().list_contacts()
+    await web.TCPSite(runner, "0.0.0.0", 8080).start()
 
 
 if __name__ == "__main__":
