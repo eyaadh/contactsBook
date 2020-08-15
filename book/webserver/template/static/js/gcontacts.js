@@ -60,13 +60,24 @@ function load_cMod_data(identifier){
         $('#ContactDetailedModal').find('.modal-title').text(data['names'][0]['displayName']);
         $('#contacts-phone-card').empty();
         $('#contacts-email-card').empty();
+        $('#contacts-organization-card').empty();
 
-        for (i = 0; i < data['phoneNumbers'].length; ++i) {
-            $("#contacts-phone-card").append('<h6 class="card-subtitle mb-2 text-muted text-capitalize">' + data['phoneNumbers'][i]['type'] + '</h6><p class="card-text">' + data['phoneNumbers'][i]['value']  + '</p>');
+        if (data.hasOwnProperty('phoneNumbers')){
+            for (i = 0; i < data['phoneNumbers'].length; ++i) {
+                $("#contacts-phone-card").append('<h6 class="card-subtitle mb-2 text-muted text-capitalize">' + data['phoneNumbers'][i]['type'] + '</h6><p class="card-text">' + data['phoneNumbers'][i]['value']  + '</p>');
+            }
         }
 
-        for (i = 0; i < data['emailAddresses'].length; ++i) {
-            $("#contacts-email-card").append('<h6 class="card-subtitle mb-2 text-muted text-capitalize">' + data['emailAddresses'][i]['type'] + '</h6><p class="card-text">' + data['emailAddresses'][i]['value']  + '</p>');
+        if (data.hasOwnProperty('emailAddresses')){
+            for (i = 0; i < data['emailAddresses'].length; ++i) {
+                $("#contacts-email-card").append('<h6 class="card-subtitle mb-2 text-muted text-capitalize">' + data['emailAddresses'][i]['type'] + '</h6><p class="card-text">' + data['emailAddresses'][i]['value']  + '</p>');
+            }
+        }
+
+        if (data.hasOwnProperty('organizations')){
+            for (i = 0; i < data['organizations'].length; ++i) {
+                $("#contacts-organization-card").append('<h6 class="card-subtitle mb-2 text-muted text-capitalize">Name</h6><p class="card-text">' + data['organizations'][i]['name']  + '</p><h6 class="card-subtitle mb-2 text-muted text-capitalize">Title</h6><p class="card-text">' + data['organizations'][i]['title'] + '</p>');
+            }
         }
     });
 }
