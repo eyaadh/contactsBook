@@ -20,3 +20,8 @@ class GPeople:
             personFields='names,emailAddresses,phoneNumbers,organizations').execute()
 
         return results
+
+    async def delete_contacts(self, resource_name):
+        results = self.service.people().deleteContact(resourceName=resource_name).execute()
+
+        return results

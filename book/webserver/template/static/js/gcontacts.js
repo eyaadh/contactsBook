@@ -18,6 +18,8 @@ function load_contacts_table(){
     RPC.call('list_people').then(function (result) {
         data = JSON.parse(result)
 
+        $('#contacts-table tbody').empty();
+
         for (i=0; i < data['len']; i++) {
             console.log(data['contacts'][i]);
             ref = data['contacts'][i]['resourceName']
@@ -54,6 +56,8 @@ function load_contacts_table(){
 
 function load_cMod_data(identifier){
     resource_name = $(identifier).data('contact-ref');
+     $('#contact-delete-button').data('resource-name', resource_name);
+
     RPC.call('get_people', {'resource_name' : resource_name}).then(function (result) {
         data = JSON.parse(result)
         console.log(data);
@@ -78,6 +82,29 @@ function load_cMod_data(identifier){
             for (i = 0; i < data['organizations'].length; ++i) {
                 $("#contacts-organization-card").append('<h6 class="card-subtitle mb-2 text-muted text-capitalize">Name</h6><p class="card-text">' + data['organizations'][i]['name']  + '</p><h6 class="card-subtitle mb-2 text-muted text-capitalize">Title</h6><p class="card-text">' + data['organizations'][i]['title'] + '</p>');
             }
+        }
+    });
+}
+
+function delete_contact(identifier){
+    resource_name = $(identifier).data('resource-name');
+
+    $.confirm({
+        title: 'Confirm Deleting Contact!',
+        content: 'Confirm Deleting Contact',
+        type: 'red',
+        closeIcon: true,
+        typeAnimated: true,
+        draggable: true,
+        buttons: {
+            confirm: function () {
+                RPC.call('delete_people', {'resource_name' : resource_name}).then(function (result) {
+                    console.log(result);
+                    load_contacts_table();
+                });
+                $.alert('The Contact has been Deleted!');
+                $('#ContactDetailedModal').modal('hide')
+            },
         }
     });
 }
