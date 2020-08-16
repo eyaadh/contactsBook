@@ -146,7 +146,6 @@ function export_contacts(){
 }
 
 // new contact form validations
-
 function save_button_enable_check(){
     if ( ($('#newContactFirstName').val() === '') || ($('#newContactLastName').val() === '') ||  ($('#newContactMobile').val() === '') || ($('#newContactPager').val() === '') || ($('#newContactTitle').val() === '') ){
         $('#contact-new-button').prop('disabled', true);
