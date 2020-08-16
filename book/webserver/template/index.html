@@ -27,6 +27,14 @@
 <!--                    <li class="nav-item">-->
 <!--                        <a class="nav-link" id="nav-options-tab" data-toggle="tab" href="#nav-options" role="tab" aria-controls="nav-options" aria-selected="false">Options</a>-->
 <!--                    </li>-->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage Contacts</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" data-toggle="modal" data-target="#ContactNewModal"><i class="fa fa-plus" aria-hidden="true"></i> New Contact</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" onclick="export_contacts();"><i class="fa fa-download" aria-hidden="true"></i> Export Contacts</a>
+                        </div>
+                    </li>
 
                 </ul>
                 <form class="form-inline">
@@ -66,7 +74,6 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <!--- Address Card Viewer Modal --->
                             <div class="modal-body">
                                 <div class="card-deck">
                                     <div class="card">
@@ -96,6 +103,61 @@
                         </div>
                     </div>
                 </div>
+
+                <!--Contact New Modal-->
+                <div class="modal fade" id="ContactNewModal" tabindex="-1" aria-labelledby="ContactNewModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ContactNewModalLabel"><i class="fa fa-address-card-o" aria-hidden="true"></i> New Contact</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="card-deck">
+                                    <div class="card">
+                                        <div class="card-header"><i class="fa fa-address-book-o" aria-hidden="true"></i> Phone Numbers</div>
+                                        <div class="card-body">
+                                            <label for="newContactMobile">Mobile</label>
+                                            <input type="text" class="form-control" id="newContactMobile">
+
+                                            <label for="newContactPager">Pager</label>
+                                            <input type="text" class="form-control" id="newContactPager">
+
+                                            <label for="newContactTExtension">Telephone Extension</label>
+                                            <input type="text" class="form-control" id="newContactTExtension">
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header"><i class="fa fa-envelope-o" aria-hidden="true"></i> Emails</div>
+                                        <div class="card-body">
+                                            <label for="newContactWorkMail">Work</label>
+                                            <input type="text" class="form-control" id="newContactWorkMail">
+
+                                            <label for="newContactPersonalMail">Personal</label>
+                                            <input type="text" class="form-control" id="newContactPersonalMail">
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header"><i class="fa fa-university" aria-hidden="true"></i></i> Organization Details</div>
+                                        <div class="card-body">
+                                            <label for="newContactName">Name</label>
+                                            <input type="text" class="form-control" id="newContactName">
+
+                                            <label for="newContactTitle">Title</label>
+                                            <input type="text" class="form-control" id="newContactTitle">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="contact-new-button" type="button" class="btn btn-primary" onclick="new_contact();"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 <!--            <div class="tab-pane fade" id="nav-options" role="tabpanel" aria-labelledby="nav-options-tab">...options</div>-->
         </div>
@@ -112,6 +174,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
+    <script src="{{ static('js/csvExport.js') }}"></script>
     <script src="{{ static('js/gcontacts.js') }}"></script>
 </body>
 </html>

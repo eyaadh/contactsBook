@@ -103,8 +103,17 @@ function delete_contact(identifier){
                     load_contacts_table();
                 });
                 $.alert('The Contact has been Deleted!');
-                $('#ContactDetailedModal').modal('hide')
+                $('#ContactDetailedModal').modal('hide');
             },
         }
     });
+}
+
+function new_contact(){
+    alert('havent finished writing this yet');
+    $('#ContactNewModal').modal('hide');
+}
+
+function export_contacts(){
+    $("#contacts-table").csvExport({escapeContent:false});
 }
