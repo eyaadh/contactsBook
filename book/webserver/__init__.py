@@ -20,5 +20,6 @@ async def web_server():
     WebSocketAsync.add_route("list_people", ws_routes.list_people.list_people)
     WebSocketAsync.add_route("get_people", ws_routes.get_people.get_people)
     WebSocketAsync.add_route("delete_people", ws_routes.delete_people.delete_people)
+    WebSocketAsync.add_route("create_people", ws_routes.create_people.create_people)
 
     return web_app

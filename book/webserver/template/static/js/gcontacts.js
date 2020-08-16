@@ -110,8 +110,26 @@ function delete_contact(identifier){
 }
 
 function new_contact(){
-    alert('havent finished writing this yet');
     $('#ContactNewModal').modal('hide');
+
+    data_json = {
+        'family_name': $('#newContactFirstName').val(),
+        'given_name': $('#newContactLastName').val(),
+        'mobile': $('#newContactMobile').val(),
+        'pager': $('#newContactPager').val(),
+        'extension': $('#newContactTExtension').val(),
+        'work_email': $('#newContactWorkMail').val(),
+        'personal_email': $('#newContactPersonalMail').val(),
+        'work_name': $('#newContactWName').val(),
+        'title': $('#newContactTitle').val()
+    }
+
+    RPC.call('create_people', {'data' : data_json}).then(function (result) {
+        console.log(result);
+        $.alert('Addition of the contact has been requested to server!');
+    });
+
+    load_contacts_table();
 }
 
 function export_contacts(){

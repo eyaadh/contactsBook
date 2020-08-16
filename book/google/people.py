@@ -25,3 +25,8 @@ class GPeople:
         results = self.service.people().deleteContact(resourceName=resource_name).execute()
 
         return results
+
+    async def create_contacts(self, data):
+        results = self.service.people().createContact(body=data).execute()
+
+        return results
