@@ -119,24 +119,25 @@
                                     <div class="card">
                                         <div class="card-header"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Employee Details</div>
                                         <div class="card-body">
-                                            <label for="newContactFirstName">First Name</label>
+                                            <label for="newContactFirstName">First Name</label><small class="text-muted"> (Required)</small>
                                             <input type="text" class="form-control" id="newContactFirstName">
 
-                                            <label for="newContactLastName">Last Name</label>
+
+                                            <label for="newContactLastName">Last Name</label><small class="text-muted"> (Required)</small>
                                             <input type="text" class="form-control" id="newContactLastName">
                                         </div>
                                     </div>
                                     <div class="card">
                                         <div class="card-header"><i class="fa fa-address-book-o" aria-hidden="true"></i> Phone Numbers</div>
                                         <div class="card-body">
-                                            <label for="newContactMobile">Mobile</label>
-                                            <input type="text" class="form-control" id="newContactMobile">
+                                            <label for="newContactMobile">Mobile</label><small class="text-muted"> (Required)</small>
+                                            <input type="tel" class="form-control" id="newContactMobile">
 
-                                            <label for="newContactPager">Pager</label>
-                                            <input type="text" class="form-control" id="newContactPager">
+                                            <label for="newContactPager">Pager</label><small class="text-muted"> (Required)</small>
+                                            <input type="tel" class="form-control" id="newContactPager">
 
                                             <label for="newContactTExtension">Telephone Extension</label>
-                                            <input type="text" class="form-control" id="newContactTExtension">
+                                            <input type="tel" class="form-control" id="newContactTExtension">
                                         </div>
                                     </div>
                                     <div class="card">
@@ -155,14 +156,14 @@
                                             <label for="newContactWName">Name</label>
                                             <input type="text" class="form-control" id="newContactWName">
 
-                                            <label for="newContactTitle">Title</label>
+                                            <label for="newContactTitle">Title</label><small class="text-muted"> (Required)</small>
                                             <input type="text" class="form-control" id="newContactTitle">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button id="contact-new-button" type="button" class="btn btn-primary" onclick="new_contact();"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+                                <button id="contact-new-button" type="button" class="btn btn-primary" onclick="new_contact();" disabled><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
                         </div>

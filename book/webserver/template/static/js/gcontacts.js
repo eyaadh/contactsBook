@@ -130,8 +130,47 @@ function new_contact(){
     });
 
     load_contacts_table();
+    $('#newContactFirstName').val('');
+    $('#newContactLastName').val('');
+    $('#newContactMobile').val('');
+    $('#newContactPager').val('');
+    $('#newContactTExtension').val('');
+    $('#newContactWorkMail').val('');
+    $('#newContactPersonalMail').val('');
+    $('#newContactWName').val('');
+    $('#newContactTitle').val('');
 }
 
 function export_contacts(){
     $("#contacts-table").csvExport({escapeContent:false});
 }
+
+// new contact form validations
+
+function save_button_enable_check(){
+    if ( ($('#newContactFirstName').val() === '') || ($('#newContactLastName').val() === '') ||  ($('#newContactMobile').val() === '') || ($('#newContactPager').val() === '') || ($('#newContactTitle').val() === '') ){
+        $('#contact-new-button').prop('disabled', true);
+    } else {
+        $('#contact-new-button').prop('disabled', false);
+    }
+}
+
+$("#newContactFirstName").on("change paste keyup", function() {
+    save_button_enable_check();
+});
+
+$("#newContactLastName").on("change paste keyup", function() {
+    save_button_enable_check();
+});
+
+$("#newContactMobile").on("change paste keyup", function() {
+    save_button_enable_check();
+});
+
+$("#newContactPager").on("change paste keyup", function() {
+    save_button_enable_check();
+});
+
+$("#newContactTitle").on("change paste keyup", function() {
+    save_button_enable_check();
+});
