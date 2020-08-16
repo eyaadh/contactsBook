@@ -68,19 +68,19 @@ function load_cMod_data(identifier){
 
         if (data.hasOwnProperty('phoneNumbers')){
             for (i = 0; i < data['phoneNumbers'].length; ++i) {
-                $("#contacts-phone-card").append('<h6 class="card-subtitle mb-2 text-muted text-capitalize">' + data['phoneNumbers'][i]['type'] + '</h6><p class="card-text">' + data['phoneNumbers'][i]['value']  + '</p>');
+                $("#contacts-phone-card").append('<label class="text-capitalize">' + data['phoneNumbers'][i]['type'] + '</lable><input type="text" class="form-control" value="' + data['phoneNumbers'][i]['value']  + '">');
             }
         }
 
         if (data.hasOwnProperty('emailAddresses')){
             for (i = 0; i < data['emailAddresses'].length; ++i) {
-                $("#contacts-email-card").append('<h6 class="card-subtitle mb-2 text-muted text-capitalize">' + data['emailAddresses'][i]['type'] + '</h6><p class="card-text">' + data['emailAddresses'][i]['value']  + '</p>');
+                $("#contacts-email-card").append('<label class="text-capitalize">' + data['emailAddresses'][i]['type'] + '</lable><input type="text" class="form-control" value="' + data['emailAddresses'][i]['value']  + '">');
             }
         }
 
         if (data.hasOwnProperty('organizations')){
             for (i = 0; i < data['organizations'].length; ++i) {
-                $("#contacts-organization-card").append('<h6 class="card-subtitle mb-2 text-muted text-capitalize">Name</h6><p class="card-text">' + data['organizations'][i]['name']  + '</p><h6 class="card-subtitle mb-2 text-muted text-capitalize">Title</h6><p class="card-text">' + data['organizations'][i]['title'] + '</p>');
+                $("#contacts-organization-card").append('<label class="text-capitalize">Name</lable><input type="text" class="form-control" value="' + data['organizations'][i]['name']  + '"><label class="text-capitalize">Title</lable><input type="text" class="form-control" value="' + data['organizations'][i]['title'] + '">');
             }
         }
     });
