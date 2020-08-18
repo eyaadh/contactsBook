@@ -57,6 +57,7 @@ function load_contacts_table(){
 function load_cMod_data(identifier){
     resource_name = $(identifier).data('contact-ref');
      $('#contact-delete-button').data('resource-name', resource_name);
+     $('#contacts-phone-card').data('resource-name', resource_name)
 
     RPC.call('get_people', {'resource_name' : resource_name}).then(function (result) {
         data = JSON.parse(result)
@@ -68,13 +69,13 @@ function load_cMod_data(identifier){
 
         if (data.hasOwnProperty('phoneNumbers')){
             for (i = 0; i < data['phoneNumbers'].length; ++i) {
-                $("#contacts-phone-card").append('<label class="text-capitalize">' + data['phoneNumbers'][i]['type'] + '</lable><input type="text" class="form-control" value="' + data['phoneNumbers'][i]['value']  + '">');
+                $("#contacts-phone-card").append('<label class="text-capitalize">' + data['phoneNumbers'][i]['type'] + '</lable><input type="text" data-field-name="' + data['phoneNumbers'][i]['type'] + '" class="form-control" value="' + data['phoneNumbers'][i]['value']  + '">');
             }
         }
 
         if (data.hasOwnProperty('emailAddresses')){
             for (i = 0; i < data['emailAddresses'].length; ++i) {
-                $("#contacts-email-card").append('<label class="text-capitalize">' + data['emailAddresses'][i]['type'] + '</lable><input type="text" class="form-control" value="' + data['emailAddresses'][i]['value']  + '">');
+                $("#contacts-email-card").append('<label class="text-capitalize">' + data['emailAddresses'][i]['type'] + '</lable><input type="text" data-field-name="' + data['emailAddresses'][i]['type'] + '" class="form-control" value="' + data['emailAddresses'][i]['value']  + '">');
             }
         }
 
@@ -173,3 +174,29 @@ $("#newContactPager").on("change paste keyup", function() {
 $("#newContactTitle").on("change paste keyup", function() {
     save_button_enable_check();
 });
+
+function update_contact(){
+    contacts_array = [];
+    $('#contacts-phone-card').find('input:text').each(function() {
+        field_name = $(this).data('field-name');
+        data_value = $(this).val()
+        contacts_array.push({'value': data_value, 'type': field_name});
+    });
+
+    email_array = [];
+    $('#contacts-email-card').find('input:text').each(function() {
+        field_name = $(this).data('field-name');
+        data_value = $(this).val()
+        email_array.push({'value': data_value, 'type': field_name});
+    });
+
+    compiled_data_dict = {
+        'resourceName': $('#contacts-phone-card').data('resource-name'),
+        'phoneNumbers': contacts_array,
+        'emailAddresses': email_array
+    }
+
+    RPC.call('update_people', {'data' : compiled_data_dict}).then(function (result) {
+        console.log(result);
+    });
+}

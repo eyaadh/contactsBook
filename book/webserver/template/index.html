@@ -78,7 +78,7 @@
                                 <div class="card-deck">
                                     <div class="card">
                                         <div class="card-header"><i class="fa fa-address-book-o" aria-hidden="true"></i> Phone Numbers</div>
-                                        <div class="card-body" id="contacts-phone-card">
+                                        <div class="card-body" id="contacts-phone-card" data-resource-name="">
                                             <!--load from JS-->
                                         </div>
                                     </div>
@@ -98,6 +98,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button id="contact-delete-button" type="button" class="btn btn-danger" data-resource-name="" onclick="delete_contact(this);"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                                <button id="contact-update-button" type="button" class="btn btn-success" onclick="update_contact();"><i class="fa fa-floppy-o" aria-hidden="true"></i> Update</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
                         </div>

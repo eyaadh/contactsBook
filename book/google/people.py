@@ -30,3 +30,9 @@ class GPeople:
         results = self.service.people().createContact(body=data).execute()
 
         return results
+
+    async def update_contacts(self, resource_name, data, person_fields):
+        results = self.service.people().updateContact(
+            resourceName=resource_name, body=data, updatePersonFields=person_fields).execute()
+
+        return results
