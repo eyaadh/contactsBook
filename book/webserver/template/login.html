@@ -27,6 +27,13 @@
                 <div class="card text-center align-middle">
                     <div class="card-header"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</div>
                     <div class="card-body">
+
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            You are not logged into the system, this could be due incorrect login credentials.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         <form id="LoginForm" name="LoginForm" enctype="multipart/form-data" method="post" action="/login">
                             <div class="form-group row">
                                 <label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
@@ -45,6 +52,7 @@
                                     <input type="password" form="LoginForm" class="form-control" id="inputPassword" name="inputPassword">
                                 </div>
                             </div>
+
                             <button type="submit" class="btn btn-primary">Login</button>
                         </form>
                     </div>
