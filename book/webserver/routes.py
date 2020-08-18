@@ -11,8 +11,11 @@ routes = web.RouteTableDef()
 @auth.auth_required
 @aiohttp_jinja2.template('index.html')
 async def root_route_handler(request):
-    session = await auth.get_auth(request)
-    context = {'user': session}
+    username = await auth.get_auth(request)
+    user_query = await Users().get_user(username)
+    group = user_query[0].get('groups')
+    print(group)
+    context = {'user': username, 'groups': group}
     return context
 
 

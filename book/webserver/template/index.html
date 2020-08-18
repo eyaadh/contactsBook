@@ -21,14 +21,17 @@
             </a>
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage Contacts</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" data-toggle="modal" data-target="#ContactNewModal"><i class="fa fa-plus" aria-hidden="true"></i> New Contact</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" onclick="export_contacts();"><i class="fa fa-download" aria-hidden="true"></i> Export Contacts</a>
-                        </div>
-                    </li>
+                    {% if groups == 'admin' %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage Contacts</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" data-toggle="modal" data-target="#ContactNewModal"><i class="fa fa-plus" aria-hidden="true"></i> New Contact</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" onclick="export_contacts();"><i class="fa fa-download" aria-hidden="true"></i> Export Contacts</a>
+                            </div>
+                        </li>
+                    {% endif %}
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile</a>
                         <div class="dropdown-menu">
@@ -99,8 +102,10 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button id="contact-delete-button" type="button" class="btn btn-danger" data-resource-name="" onclick="delete_contact(this);"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
-                                <button id="contact-update-button" type="button" class="btn btn-success" onclick="update_contact();"><i class="fa fa-floppy-o" aria-hidden="true"></i> Update</button>
+                                 {% if groups == 'admin' %}
+                                    <button id="contact-delete-button" type="button" class="btn btn-danger" data-resource-name="" onclick="delete_contact(this);"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                                    <button id="contact-update-button" type="button" class="btn btn-success" onclick="update_contact();"><i class="fa fa-floppy-o" aria-hidden="true"></i> Update</button>
+                                 {% endif %}
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
                         </div>

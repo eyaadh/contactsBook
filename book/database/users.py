@@ -27,6 +27,7 @@ class Users:
 
     async def init_db(self):
         default_pass_hash = pbkdf2_sha256.hash("password")
+        default_pass2_hash = pbkdf2_sha256.hash("password2")
         if not self.collection.search(self.query.user_id == 'admin'):
             self.collection.insert(
                 {
@@ -35,3 +36,11 @@ class Users:
                     'groups': 'admin'
                 }
             )
+            self.collection.insert(
+                {
+                    'user_id': 'user',
+                    'hash': default_pass2_hash,
+                    'groups': 'user'
+                }
+            )
+
