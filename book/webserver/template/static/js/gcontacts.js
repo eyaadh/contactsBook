@@ -198,5 +198,7 @@ function update_contact(){
 
     RPC.call('update_people', {'data' : compiled_data_dict}).then(function (result) {
         console.log(result);
+        $.alert('Update request for the contact has been sent to server!');
+        $('#ContactDetailedModal').modal('hide');
     });
 }
