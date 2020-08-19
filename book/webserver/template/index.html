@@ -14,44 +14,48 @@
     <title>Contact Book</title>
 </head>
 <body>
-    <div class="container">
-        <!-- main - navbar-->
-        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">
-                <img src="{{ static('images/header_ico.png') }}" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
-                Vakkaru Maldives - Contact Book
-            </a>
-            <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav mr-auto">
-                    {% if groups == 'admin' %}
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage Contacts</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" data-toggle="modal" data-target="#ContactNewModal"><i class="fa fa-plus" aria-hidden="true"></i> New Contact</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" onclick="export_contacts();"><i class="fa fa-download" aria-hidden="true"></i> Export Contacts</a>
-                            </div>
-                        </li>
-                    {% endif %}
-
+    <!-- main - navbar-->
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+            <img src="{{ static('images/header_ico.png') }}" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+            Vakkaru Maldives - Contact Book
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                {% if groups == 'admin' %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile</a>
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage Contacts</a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" data-toggle="modal" data-target="#ProfileEditModal"><i class="fa fa-cogs" aria-hidden="true"></i> Options</a>
-                            {% if groups == 'admin' %}
-                                <a class="dropdown-item" data-toggle="modal" data-target="#UserManagementModal"><i class="fa fa-users" aria-hidden="true"></i> User Management</a>
-                            {% endif %}
+                            <a class="dropdown-item" data-toggle="modal" data-target="#ContactNewModal"><i class="fa fa-plus" aria-hidden="true"></i> New Contact</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" id="ProfileLogoutAnchor" data-logged-user="{{ user }}" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+                            <a class="dropdown-item" onclick="export_contacts();"><i class="fa fa-download" aria-hidden="true"></i> Export Contacts</a>
                         </div>
                     </li>
+                {% endif %}
 
-                </ul>
-                <form class="form-inline">
-                    <input id="contact-search-input" class="form-control input-sm" type="search" placeholder="Search" aria-label="Search">
-                </form>
-            </div>
-        </nav>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" data-toggle="modal" data-target="#ProfileEditModal"><i class="fa fa-cogs" aria-hidden="true"></i> Options</a>
+                        {% if groups == 'admin' %}
+                            <a class="dropdown-item" data-toggle="modal" data-target="#UserManagementModal"><i class="fa fa-users" aria-hidden="true"></i> User Management</a>
+                        {% endif %}
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" id="ProfileLogoutAnchor" data-logged-user="{{ user }}" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+                    </div>
+                </li>
+
+            </ul>
+            <form class="form-inline">
+                <input id="contact-search-input" class="form-control input-sm" type="search" placeholder="Search" aria-label="Search">
+            </form>
+        </div>
+    </nav>
+
+    <div class="container">
 
         <!--body contents-->
         <div class="tab-content" id="nav-tabContent">
