@@ -15,8 +15,6 @@ class Users:
             users.append(
                 {
                     'user_id': document['user_id'],
-                    'name': document['name'],
-                    'password': document['password'],
                     'groups': document['groups']
                 }
             )

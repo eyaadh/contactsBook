@@ -220,3 +220,17 @@ function password_update(){
         });
     }
 }
+
+function list_users(){
+    RPC.call('list_users').then(function (result) {
+        data = JSON.parse(result)
+        for (i=0; i < data['length']; i++) {
+            user_table_row = '<tr><th>' +  ( i + 1 ) + '</th><td>' + data[i]['user_id'] + '</td><td>' + data[i]['groups'] + '</td></tr>'
+            $('#user-list-table > tbody:last-child').append(user_table_row);
+        }
+    });
+}
+
+$('#UserManagementModal').on('show.bs.modal', function() {
+    list_users();
+});

@@ -1,3 +1,4 @@
+import json
 from book.database.users import Users
 from passlib.hash import pbkdf2_sha256
 from wsrpc_aiohttp import WebSocketAsync, STATIC_DIR, WebSocketRoute
@@ -13,3 +14,8 @@ async def update_password(socket: WebSocketAsync, *, username, old, new):
             return "The old password does not match the password as on the Server."
     else:
         return "There was an error updating this profile. Contact the administrator"
+
+
+async def list_all_users(socket: WebSocketAsync):
+    users = await Users().get_users()
+    return json.dumps(users)

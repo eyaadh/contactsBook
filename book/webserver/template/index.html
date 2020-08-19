@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 
+    <link rel="icon" type="image/png" href="{{ static('images/header_ico.png') }}"/>
+
     <script type="text/javascript" src="/js/wsrpc.js"></script>
     <title>Contact Book</title>
 </head>
@@ -16,7 +18,7 @@
         <!-- main - navbar-->
         <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">
-                <img src="https://lh3.googleusercontent.com/bmAgJpYshVKiLTfOlLBUFnBeYycmR15sQ4DuMA-HHdn09jBR2yyBKTNU91Qu49kVxg" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+                <img src="{{ static('images/header_ico.png') }}" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
                 Vakkaru Maldives - Contact Book
             </a>
             <div class="collapse navbar-collapse" id="navbarText">
@@ -36,6 +38,7 @@
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile</a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" data-toggle="modal" data-target="#ProfileEditModal"><i class="fa fa-cogs" aria-hidden="true"></i> Options</a>
+                            <a class="dropdown-item" data-toggle="modal" data-target="#UserManagementModal"><i class="fa fa-users" aria-hidden="true"></i> User Management</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" id="ProfileLogoutAnchor" data-logged-user="{{ user }}" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
                         </div>
@@ -69,149 +72,180 @@
                     </tbody>
 
                 </table>
-                <!--Contact Detailed Modal-->
-                <div class="modal fade" id="ContactDetailedModal" tabindex="-1" aria-labelledby="ContactDetailedModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="ContactDetailedModalLabel">Contact Name</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="card-deck">
-                                    <div class="card">
-                                        <div class="card-header"><i class="fa fa-address-book-o" aria-hidden="true"></i> Phone Numbers</div>
-                                        <div class="card-body" id="contacts-phone-card" data-resource-name="">
-                                            <!--load from JS-->
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header"><i class="fa fa-envelope-o" aria-hidden="true"></i> Emails</div>
-                                        <div class="card-body" id="contacts-email-card">
-                                            <!--load from JS-->
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header"><i class="fa fa-university" aria-hidden="true"></i> Organization Details</div>
-                                        <div class="card-body" id="contacts-organization-card">
-                                            <!--load from JS-->
-                                        </div>
+
+            </div>
+            <!--Contact Detailed Modal-->
+            <div class="modal fade" id="ContactDetailedModal" tabindex="-1" aria-labelledby="ContactDetailedModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ContactDetailedModalLabel">Contact Name</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="card-deck">
+                                <div class="card">
+                                    <div class="card-header"><i class="fa fa-address-book-o" aria-hidden="true"></i> Phone Numbers</div>
+                                    <div class="card-body" id="contacts-phone-card" data-resource-name="">
+                                        <!--load from JS-->
                                     </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                 {% if groups == 'admin' %}
-                                    <button id="contact-delete-button" type="button" class="btn btn-danger" data-resource-name="" onclick="delete_contact(this);"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
-                                    <button id="contact-update-button" type="button" class="btn btn-success" onclick="update_contact();"><i class="fa fa-floppy-o" aria-hidden="true"></i> Update</button>
-                                 {% endif %}
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <div class="card">
+                                    <div class="card-header"><i class="fa fa-envelope-o" aria-hidden="true"></i> Emails</div>
+                                    <div class="card-body" id="contacts-email-card">
+                                        <!--load from JS-->
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header"><i class="fa fa-university" aria-hidden="true"></i> Organization Details</div>
+                                    <div class="card-body" id="contacts-organization-card">
+                                        <!--load from JS-->
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <!--Contact New Modal-->
-                <div class="modal fade" id="ContactNewModal" tabindex="-1" aria-labelledby="ContactNewModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="ContactNewModalLabel"><i class="fa fa-address-card-o" aria-hidden="true"></i> New Contact</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="card-columns">
-                                    <div class="card">
-                                        <div class="card-header"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Employee Details</div>
-                                        <div class="card-body">
-                                            <label for="newContactFirstName">First Name</label><small class="text-muted"> (Required)</small>
-                                            <input type="text" class="form-control" id="newContactFirstName">
-
-
-                                            <label for="newContactLastName">Last Name</label><small class="text-muted"> (Required)</small>
-                                            <input type="text" class="form-control" id="newContactLastName">
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header"><i class="fa fa-address-book-o" aria-hidden="true"></i> Phone Numbers</div>
-                                        <div class="card-body">
-                                            <label for="newContactMobile">Mobile</label><small class="text-muted"> (Required)</small>
-                                            <input type="tel" class="form-control" id="newContactMobile">
-
-                                            <label for="newContactPager">Pager</label><small class="text-muted"> (Required)</small>
-                                            <input type="tel" class="form-control" id="newContactPager">
-
-                                            <label for="newContactTExtension">Telephone Extension</label>
-                                            <input type="tel" class="form-control" id="newContactTExtension">
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header"><i class="fa fa-envelope-o" aria-hidden="true"></i> Emails</div>
-                                        <div class="card-body">
-                                            <label for="newContactWorkMail">Work</label>
-                                            <input type="text" class="form-control" id="newContactWorkMail">
-
-                                            <label for="newContactPersonalMail">Personal</label>
-                                            <input type="text" class="form-control" id="newContactPersonalMail">
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header"><i class="fa fa-university" aria-hidden="true"></i> Organization Details</div>
-                                        <div class="card-body">
-                                            <label for="newContactWName">Name</label>
-                                            <input type="text" class="form-control" id="newContactWName">
-
-                                            <label for="newContactTitle">Title</label><small class="text-muted"> (Required)</small>
-                                            <input type="text" class="form-control" id="newContactTitle">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button id="contact-new-button" type="button" class="btn btn-primary" onclick="new_contact();" disabled><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--Profile Modal-->
-                <div class="modal fade" id="ProfileEditModal" tabindex="-1" aria-labelledby="ProfileEditModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <form>
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="ProfileEditModalLabel"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Profile</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="currentPasswordInput">Current Password</label>
-                                            <input type="password" class="form-control" id="currentPasswordInput" placeholder="Current Password" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="newPasswordInput">New Password</label>
-                                            <input type="password" class="form-control" id="newPasswordInput" placeholder="New Password" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="confirmPasswordInput">Confirm Password</label>
-                                            <input type="password" class="form-control" id="confirmPasswordInput" placeholder="Confirm Password" required>
-                                        </div>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button id="profile-edit-button" type="button" class="btn btn-primary" onclick="password_update();"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                </div>
-                            </form>
+                        <div class="modal-footer">
+                             {% if groups == 'admin' %}
+                                <button id="contact-delete-button" type="button" class="btn btn-danger" data-resource-name="" onclick="delete_contact(this);"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                                <button id="contact-update-button" type="button" class="btn btn-success" onclick="update_contact();"><i class="fa fa-floppy-o" aria-hidden="true"></i> Update</button>
+                             {% endif %}
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
             </div>
-<!--            <div class="tab-pane fade" id="nav-options" role="tabpanel" aria-labelledby="nav-options-tab">...options</div>-->
+            <!--Contact New Modal-->
+            <div class="modal fade" id="ContactNewModal" tabindex="-1" aria-labelledby="ContactNewModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ContactNewModalLabel"><i class="fa fa-address-card-o" aria-hidden="true"></i> New Contact</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="card-columns">
+                                <div class="card">
+                                    <div class="card-header"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Employee Details</div>
+                                    <div class="card-body">
+                                        <label for="newContactFirstName">First Name</label><small class="text-muted"> (Required)</small>
+                                        <input type="text" class="form-control" id="newContactFirstName">
+
+
+                                        <label for="newContactLastName">Last Name</label><small class="text-muted"> (Required)</small>
+                                        <input type="text" class="form-control" id="newContactLastName">
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header"><i class="fa fa-address-book-o" aria-hidden="true"></i> Phone Numbers</div>
+                                    <div class="card-body">
+                                        <label for="newContactMobile">Mobile</label><small class="text-muted"> (Required)</small>
+                                        <input type="tel" class="form-control" id="newContactMobile">
+
+                                        <label for="newContactPager">Pager</label><small class="text-muted"> (Required)</small>
+                                        <input type="tel" class="form-control" id="newContactPager">
+
+                                        <label for="newContactTExtension">Telephone Extension</label>
+                                        <input type="tel" class="form-control" id="newContactTExtension">
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header"><i class="fa fa-envelope-o" aria-hidden="true"></i> Emails</div>
+                                    <div class="card-body">
+                                        <label for="newContactWorkMail">Work</label>
+                                        <input type="text" class="form-control" id="newContactWorkMail">
+
+                                        <label for="newContactPersonalMail">Personal</label>
+                                        <input type="text" class="form-control" id="newContactPersonalMail">
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header"><i class="fa fa-university" aria-hidden="true"></i> Organization Details</div>
+                                    <div class="card-body">
+                                        <label for="newContactWName">Name</label>
+                                        <input type="text" class="form-control" id="newContactWName">
+
+                                        <label for="newContactTitle">Title</label><small class="text-muted"> (Required)</small>
+                                        <input type="text" class="form-control" id="newContactTitle">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="contact-new-button" type="button" class="btn btn-primary" onclick="new_contact();" disabled><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Profile Modal-->
+            <div class="modal fade" id="ProfileEditModal" tabindex="-1" aria-labelledby="ProfileEditModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <form>
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ProfileEditModalLabel"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Profile</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="currentPasswordInput">Current Password</label>
+                                        <input type="password" class="form-control" id="currentPasswordInput" placeholder="Current Password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="newPasswordInput">New Password</label>
+                                        <input type="password" class="form-control" id="newPasswordInput" placeholder="New Password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirmPasswordInput">Confirm Password</label>
+                                        <input type="password" class="form-control" id="confirmPasswordInput" placeholder="Confirm Password" required>
+                                    </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button id="profile-edit-button" type="button" class="btn btn-primary" onclick="password_update();"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--User Management Modal-->
+            <div class="modal fade" id="UserManagementModal" tabindex="-1" aria-labelledby="UserManagementModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="UserManagementModalLabel"><i class="fa fa-users" aria-hidden="true"></i> User Management</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-hover" id="user-list-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Username</th>
+                                        <th scope="col">Group</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Load with JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="add-new-user-button" type="button" class="btn btn-primary" onclick="add_new_user();"><i class="fa fa-plus-circle" aria-hidden="true"></i> New User</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Footer contents-->
