@@ -209,8 +209,8 @@ function password_update(){
     confirm_pass = $('#confirmPasswordInput').val();
     username = $('#ProfileLogoutAnchor').data('logged-user');
 
-    if ( (old_pass === '' ) || ( new_pass === '' ) || ( confirm_pass === '' )) {
-        $.alert('Update request for the contact has been sent to server!');
+    if ( ( old_pass === '' ) || ( new_pass === '' ) || ( confirm_pass === '' )) {
+        $.alert('You need to fill in all the password fields to update the password!');
     } else if ( new_pass !== confirm_pass ){
         $.alert('New Password and Confirm Password does not match!');
     } else {
