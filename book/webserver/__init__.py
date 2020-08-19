@@ -48,5 +48,6 @@ async def web_server():
     WebSocketAsync.add_route("delete_people", ws_routes.delete_people.delete_people)
     WebSocketAsync.add_route("create_people", ws_routes.create_people.create_people)
     WebSocketAsync.add_route("update_people", ws_routes.update_people.update_people)
+    WebSocketAsync.add_route("update_password", ws_routes.user_profile.update_password)
 
     return web_app

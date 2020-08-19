@@ -186,7 +186,7 @@ function update_contact(){
     email_array = [];
     $('#contacts-email-card').find('input:text').each(function() {
         field_name = $(this).data('field-name');
-        data_value = $(this).val()
+        data_value = $(this).val();
         email_array.push({'value': data_value, 'type': field_name});
     });
 
@@ -201,4 +201,22 @@ function update_contact(){
         $.alert('Update request for the contact has been sent to server!');
         $('#ContactDetailedModal').modal('hide');
     });
+}
+
+function password_update(){
+    old_pass = $('#currentPasswordInput').val();
+    new_pass = $('#newPasswordInput').val();
+    confirm_pass = $('#confirmPasswordInput').val();
+    username = $('#ProfileLogoutAnchor').data('logged-user');
+
+    if ( (old_pass === '' ) || ( new_pass === '' ) || ( confirm_pass === '' )) {
+        $.alert('Update request for the contact has been sent to server!');
+    } else if ( new_pass !== confirm_pass ){
+        $.alert('New Password and Confirm Password does not match!');
+    } else {
+        RPC.call('update_password', {'username' : username, 'old': old_pass, 'new': new_pass}).then(function (result) {
+            $.alert(result);
+            $('#ProfileEditModal').modal('hide');
+        });
+    }
 }

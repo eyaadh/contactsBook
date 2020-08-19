@@ -1,5 +1,6 @@
 from passlib.hash import pbkdf2_sha256
 from book.database import DB
+from tinydb.operations import set
 
 
 class Users:
@@ -44,3 +45,6 @@ class Users:
                 }
             )
 
+    async def update_user_pass(self, user_name, password):
+        password_hashed = pbkdf2_sha256.hash(password)
+        self.collection.update(set('hash', password_hashed), self.query.user_id == user_name)
