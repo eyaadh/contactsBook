@@ -246,6 +246,10 @@ function add_new_user(){
         RPC.call('create_user', {'username' : username, 'password': password, 'group': group}).then(function (result) {
             if ( ( result === true ) ){
                 $.alert('New user has been added!');
+                $('#NewUserModal').modal('hide');
+                $('#newUserUsernameInput').val('')
+                $('#newUserPasswordInput').val('');
+                list_users();
             } else {
                 $.alert('There has been an error adding this user!');
             }
@@ -288,3 +292,23 @@ function edit_save_user(){
     });
 }
 
+function delete_user(){
+    del_username = $('#EditUserModal').data('username');
+    $.confirm({
+        title: 'Confirm removing user!',
+        content: 'Confirm removing ' + del_username,
+        type: 'red',
+        closeIcon: true,
+        typeAnimated: true,
+        draggable: true,
+        buttons: {
+            confirm: function () {
+                RPC.call('remove_user', {'username' : del_username}).then(function (result) {
+                    $.alert('The user has been removed!');
+                    $('#EditUserModal').modal('hide');
+                    list_users();
+                });
+            },
+        }
+    });
+}

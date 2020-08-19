@@ -52,5 +52,6 @@ async def web_server():
     WebSocketAsync.add_route("list_users", ws_routes.user_profile.list_all_users)
     WebSocketAsync.add_route("create_user", ws_routes.user_profile.create_user)
     WebSocketAsync.add_route("edit_user", ws_routes.user_profile.edit_user)
+    WebSocketAsync.add_route("remove_user", ws_routes.user_profile.remove_user)
 
     return web_app

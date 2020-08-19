@@ -28,9 +28,13 @@ async def create_user(socket: WebSocketAsync, *, username, password, group):
 async def edit_user(socket: WebSocketAsync, *, data):
     if data["type"] == "nPassword":
         await Users().update_user_group(data['username'], data['groups'])
-        return f"{data['username']} has been assigned to <strong>{data['groups']}</strong> group!."
+        return f"<strong>{data['username']}</strong> has been assigned to <strong>{data['groups']}</strong> group!."
     elif data["type"] == "wPassword":
         await Users().update_user_pass(data['username'], data['password'])
         await Users().update_user_group(data['username'], data['groups'])
-        return f"{data['username']} has been assigned to <strong>{data['groups']}</strong> " \
+        return f"<strong>{data['username']}</strong> has been assigned to <strong>{data['groups']}</strong> " \
                f"group and password for the user is updated!"
+
+
+async def remove_user(socket: WebSocketAsync, *, username):
+    return await Users().remove_user(username)

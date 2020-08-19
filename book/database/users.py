@@ -63,3 +63,6 @@ class Users:
             return True
         else:
             return False
+
+    async def remove_user(self, user_name):
+        self.collection.remove(self.query.user_id == user_name)
