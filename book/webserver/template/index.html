@@ -31,7 +31,7 @@
                         <div class="dropdown-menu">
                             <a class="dropdown-item" data-toggle="modal" data-target="#ContactNewModal"><i class="fa fa-plus" aria-hidden="true"></i> New Contact</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" data-toggle="modal" data-target="#ContactImportModal"><i class="fa fa-upload" aria-hidden="true"></i> New Contact</a>
+                            <a class="dropdown-item" data-toggle="modal" data-target="#ImportContactModal"><i class="fa fa-upload" aria-hidden="true"></i> Import Contacts</a>
                             <a class="dropdown-item" onclick="export_contacts();"><i class="fa fa-download" aria-hidden="true"></i> Export Contacts</a>
                         </div>
                     </li>
@@ -185,6 +185,31 @@
                             <button id="contact-new-button" type="button" class="btn btn-primary" onclick="new_contact();" disabled><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <!--Import Contacts Modal-->
+            <div class="modal fade" id="ImportContactModal" tabindex="-1" aria-labelledby="ImportContactModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <form id="ImportContactsForm" name="ImportContactsForm" enctype="multipart/form-data" method="post" action="/import_contacts">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ImportContactModalLabel"><i class="fa fa-upload" aria-hidden="true"></i> Import Contacts</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="custom-file">
+                                    <input type="file" form="ImportContactsForm" class="custom-file-input" id="customFile" required>
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-upload" aria-hidden="true"></i> Import</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
