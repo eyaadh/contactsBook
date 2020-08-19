@@ -46,3 +46,20 @@ class Users:
     async def update_user_pass(self, user_name, password):
         password_hashed = pbkdf2_sha256.hash(password)
         self.collection.update(set('hash', password_hashed), self.query.user_id == user_name)
+
+    async def update_user_group(self, user_name, groups):
+        self.collection.update(set('groups', groups), self.query.user_id == user_name)
+
+    async def create_new_user(self, user_name, password, group):
+        password_hashed = pbkdf2_sha256.hash(password)
+        if not self.collection.search(self.query.user_id == user_name):
+            self.collection.insert(
+                {
+                    'user_id': user_name,
+                    'hash': password_hashed,
+                    'groups': group
+                }
+            )
+            return True
+        else:
+            return False

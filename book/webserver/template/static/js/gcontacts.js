@@ -222,10 +222,11 @@ function password_update(){
 }
 
 function list_users(){
+    $('#user-list-table tbody').empty();
     RPC.call('list_users').then(function (result) {
         data = JSON.parse(result)
         for (i=0; i < data['length']; i++) {
-            user_table_row = '<tr><th>' +  ( i + 1 ) + '</th><td>' + data[i]['user_id'] + '</td><td>' + data[i]['groups'] + '</td></tr>'
+            user_table_row = '<tr><th>' +  ( i + 1 ) + '</th><td><a data-toggle="modal" data-target="#EditUserModal" data-user="' + data[i]['user_id'] + '" data-user-group="' + data[i]['groups'] + '" onclick="edit_user(this);">' + data[i]['user_id'] + '</a></td><td>' + data[i]['groups'] + '</td></tr>'
             $('#user-list-table > tbody:last-child').append(user_table_row);
         }
     });
@@ -234,3 +235,56 @@ function list_users(){
 $('#UserManagementModal').on('show.bs.modal', function() {
     list_users();
 });
+
+function add_new_user(){
+    username = $('#newUserUsernameInput').val();
+    password = $('#newUserPasswordInput').val();
+    group = $('#newUserGroupSelect').val();
+    if ( ( username === '' ) || ( password === '' ) ){
+        $.alert('Username and Password needs to filled to create a New User');
+    } else {
+        RPC.call('create_user', {'username' : username, 'password': password, 'group': group}).then(function (result) {
+            if ( ( result === true ) ){
+                $.alert('New user has been added!');
+            } else {
+                $.alert('There has been an error adding this user!');
+            }
+        });
+    }
+}
+
+function edit_user(identifier){
+    username = $(identifier).data('user');
+    user_group = $(identifier).data('user-group');
+    $('#EditUserModal').data('username', username);
+    $('#newEditGroupSelect option[value="' + user_group + '"]').attr("selected", "selected").change();
+}
+
+function edit_save_user(){
+    new_edit_username = $('#EditUserModal').data('username');
+    new_edit_password = $('#newEditPasswordInput').val();
+    new_edit_group = $('#newEditGroupSelect').val();
+
+    var edit_data;
+
+    if ( ( new_edit_password !== '' ) ){
+        edit_data = {
+            'type': 'wPassword',
+            'username': new_edit_username,
+            'password': new_edit_password,
+            'groups': new_edit_group
+        }
+    } else {
+        edit_data = {
+            'type': 'nPassword',
+            'username': new_edit_username,
+            'groups': new_edit_group
+        }
+    }
+
+    RPC.call('edit_user', {'data' : edit_data}).then(function (result) {
+        $.alert(result)
+        $('#EditUserModal').modal('hide');
+    });
+}
+
