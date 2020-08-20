@@ -34,9 +34,9 @@ function load_contacts_table(){
                 for (pl=0; pl < data['contacts'][i]['contactNumbers']['len']; pl++) {
                     if ( data['contacts'][i]['contactNumbers']['phoneNumbers'][pl]['type'] === 'pager') {
                         short_code = data['contacts'][i]['contactNumbers']['phoneNumbers'][pl]['value']
-                    } else if ( data['contacts'][i]['contactNumbers']['phoneNumbers'][pl]['type'] === 'mobile')  {
+                    } else if ( data['contacts'][i]['contactNumbers']['phoneNumbers'][pl]['type'] === 'work')  {
                         phone = data['contacts'][i]['contactNumbers']['phoneNumbers'][pl]['value']
-                    } else if ( data['contacts'][i]['contactNumbers']['phoneNumbers'][pl]['type'] === 'Telephone Extension')  {
+                    } else if ( data['contacts'][i]['contactNumbers']['phoneNumbers'][pl]['type'] === 'extension')  {
                         extension = data['contacts'][i]['contactNumbers']['phoneNumbers'][pl]['value']
                     }
                 }
@@ -45,6 +45,11 @@ function load_contacts_table(){
             if (data['contacts'][i]['emailsAddresses']['len'] > 0){
                 for (el=0; el < data['contacts'][i]['emailsAddresses']['len']; el++){
                     email = data['contacts'][i]['emailsAddresses']['emails'][el]['value']
+                }
+                for (el=0; el < data['contacts'][i]['emailsAddresses']['len']; el++){
+                    if ( data['contacts'][i]['emailsAddresses']['emails'][el]['type'] === 'work') {
+                        email = data['contacts'][i]['emailsAddresses']['emails'][el]['value']
+                    }
                 }
             }
 
