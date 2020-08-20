@@ -10,11 +10,11 @@ The application makes use of aiohttp as a web server i.e. aiohttp_jinja2 to rend
 
 ## Cloning & Run:
 1. `git clone https://github.com/eyaadh/contactsBook.git`, to clone and the repository.
-2. `cd book`, to enter the directory.
+2. `cd contactsBook/`, to enter the directory.
 3. `pip3 install -r requirements.txt`, to install dependencies/requirements.
 4. Create a google developer project and enable Google People API. Also add `https://www.googleapis.com/auth/contacts` to Scopes.
 > More details on Google People API and how to create a project can be found here [here](https://developers.google.com/people/v1/getting-started).
-5. download OAuth Client ID file and place at `book/working_dir/credentials.json`
+5. download OAuth Client ID file and place at `contactsBook/book/working_dir/credentials.json`
 > More details on OAuth 2.0 to Access Goole API can be found [here](https://developers.google.com/identity/protocols/oauth2).
 6. Run with `python3.8 -m book`, stop with <kbd>CTRL</kbd>+<kbd>C</kbd>.
 7. Finally to access the web interface browse to `http://localhost:8080`.
