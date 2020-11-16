@@ -36,7 +36,7 @@ function load_contacts_table(){
                         short_code = data['contacts'][i]['contactNumbers']['phoneNumbers'][pl]['value']
                     } else if ( (data['contacts'][i]['contactNumbers']['phoneNumbers'][pl]['type'] === 'work') || (data['contacts'][i]['contactNumbers']['phoneNumbers'][pl]['type'] === 'mobile') )  {
                         phone = data['contacts'][i]['contactNumbers']['phoneNumbers'][pl]['value']
-                    } else if ( data['contacts'][i]['contactNumbers']['phoneNumbers'][pl]['type'] === 'extension')  {
+                    } else if ( data['contacts'][i]['contactNumbers']['phoneNumbers'][pl]['type'] === 'extension' || (data['contacts'][i]['contactNumbers']['phoneNumbers'][pl]['type'] === 'Telephone Extension') )  {
                         extension = data['contacts'][i]['contactNumbers']['phoneNumbers'][pl]['value']
                     }
                 }
