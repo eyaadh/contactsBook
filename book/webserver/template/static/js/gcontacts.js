@@ -195,10 +195,18 @@ function update_contact(){
         email_array.push({'value': data_value, 'type': field_name});
     });
 
+    organization_array = []
+    $('#contacts-organization-card').find('input:text').each(function() {
+        field_name = $(this).data('field-name');
+        data_value = $(this).val();
+        organization_array.push({'value': data_value, 'type': field_name});
+    });
+
     compiled_data_dict = {
         'resourceName': $('#contacts-phone-card').data('resource-name'),
         'phoneNumbers': contacts_array,
-        'emailAddresses': email_array
+        'emailAddresses': email_array,
+        'organizations': organization_array
     }
 
     RPC.call('update_people', {'data' : compiled_data_dict}).then(function (result) {
